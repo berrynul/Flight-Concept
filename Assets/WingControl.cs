@@ -59,17 +59,20 @@ public class WingControl : MonoBehaviour
         WingPitch(rightWing, Mathf.Lerp(minPitch, maxPitch, wingFactor.y), 45, rightCache);
         //Debug.Log( Mathf.Lerp(minPitch, maxPitch, wingFactor.y));
 
-        WingTilt(transform, Mathf.Lerp(minPitch, maxPitch, wingFactor.x));
-
+        WingSway(leftWing, Mathf.Lerp(-30f, 30f, wingFactor.x), leftCache);
+        WingSway(rightWing, Mathf.Lerp(-30f, 30f, wingFactor.x), rightCache);
 
     }
 
-    private void WingTilt(Transform t, float degrees)
+    private void WingSway(Transform t, float degrees, Quaternion cache)
     {
         var step = 20f * Time.deltaTime;
+        Vector3 axisOfRotation = Vector3.up;
 
-        var tiltTo = Quaternion.AngleAxis(degrees, Vector3.up);
-        t.rotation = Quaternion.RotateTowards(t.rotation, tiltTo, step);
+
+        var swayDelta =  Quaternion.AngleAxis(degrees, Vector3.up);
+        var swayTo = swayDelta * cache;
+        t.rotation = Quaternion.RotateTowards(t.rotation, swayTo, step);
     }
 
     private void WingPitch(Transform t, float degrees, float axis, Quaternion cache)
