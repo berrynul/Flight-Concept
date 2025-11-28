@@ -80,7 +80,7 @@ public class WingControl : MonoBehaviour
         var step = 20f * Time.deltaTime;
 
 
-        var axisOfRotation = Quaternion.AngleAxis(axis, Vector3.forward) * Vector3.right;
+        var axisOfRotation = Vector3.right /* *Quaternion.AngleAxis(axis, Vector3.forward) */ ;
 
         //var relativeRotation = Quaternion.AngleAxis(axis, Vector3.forward);
         //var baseRotation = Quaternion.AngleAxis(45, Vector3.forward);
