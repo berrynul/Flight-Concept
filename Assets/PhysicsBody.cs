@@ -20,26 +20,28 @@ public class PhysicsBody : MonoBehaviour
     {
 
 
-
         ApplyGravity();
-        acceleration = (netForce/mass);
-        velocity += acceleration * Time.deltaTime;
-        transform.position += velocity;
-
-        Debug.DrawRay(transform.position, netForce, Color.red);
-        Debug.DrawRay(transform.position, velocity, Color.mediumAquamarine);
-        Debug.Log("Velocity "+ Vector3.Magnitude(velocity));
-        Debug.Log("Acceleration "+ Vector3.Magnitude(acceleration));
 
     }
 
     void LateUpdate(){
+
+        acceleration = (netForce/mass);
+        velocity += acceleration * Time.deltaTime;
+        transform.position += velocity;
+
+        Debug.Log("Velocity "+ Vector3.Magnitude(velocity));
+        Debug.Log("Force"+ netForce);
+        Debug.Log("RealForce" + acceleration* (mass));
+        Debug.DrawRay(transform.position, netForce, Color.red);
+        Debug.DrawRay(transform.position, velocity, Color.mediumAquamarine);
+
         netForce = new Vector3(0, 0, 0);
     }
 
     void ApplyGravity()
     {
-        netForce += new Vector3(0, -0.2f, 0) * mass * 9.8f;
+        netForce += new Vector3(0, -0.2f, 0) * mass;
 
     }
 }

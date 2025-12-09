@@ -65,12 +65,12 @@ public class Lift : MonoBehaviour
         float projection = 1-Mathf.Abs((Vector3.Dot(normal, Vector3.Normalize(playerPhysics.velocity))));
         float planeform = projection * area;
         float Force = (1f/2f) * fluidDensity * Mathf.Pow(playerPhysics.velocity.magnitude, 2) * planeform;
-        liftDirection = -1 * Vector3.Normalize(Vector3.Cross(transform.up, Vector3.Normalize(playerPhysics.velocity)));
+        liftDirection =  Vector3.Normalize(Vector3.Cross(transform.right, Vector3.Normalize(playerPhysics.velocity)));
 
 
 
-        Debug.Log(projection);
-        playerPhysics.netForce += (liftDirection * Force);
+        Debug.Log(transform.up * Force);
+        playerPhysics.netForce = ( transform.up * Force) + playerPhysics.netForce;
 
 
     }
